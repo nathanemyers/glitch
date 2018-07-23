@@ -1,6 +1,6 @@
 require 'pnglitch'
 
-infile = 'me.png'
+infile = 'olp.png'
 outfile = 'test.png'
 
 def wrong_filter scanline
@@ -32,44 +32,31 @@ def heavy_corrupt data
   data.gsub(/\w/, byte )
 end
 
-
-`say "glitching..."`
-PNGlitch.open(infile) do |png|
-  puts "4"
+def layer png, num, size
+  puts "glitching layer #{num}, size #{size}"
   png.each_scanline do |scanline|
-    scanline.change_filter 4
-    #write_random_data scanline
-    byte = Random.new.bytes(2)
+    scanline.change_filter num 
+    byte = Random.new.bytes(size)
     scanline.gsub! /\d/, byte 
   end
+end
 
-  puts "1"
-  png.each_scanline do |scanline|
-    scanline.change_filter 1
-    #write_random_data scanline
-    scanline.gsub! /\d/, 'x'
+
+begin
+  `say "glitching..."`
+  PNGlitch.open(infile) do |png|
+    layer png, 3, 2
+    layer png, 0, 1
+
+    #puts "glitch"
+    #png.glitch do |data|
+    #light_corrupt data
+    #end
+
+    png.save outfile
   end
-
-  puts "3"
-  png.each_scanline do |scanline|
-    scanline.change_filter 3
-    #write_random_data scanline
-    scanline.gsub! /\d/, 'x'
-  end
-
-  puts "glitch"
-  png.glitch do |data|
-    light_corrupt data
-  end
-
-  puts "2"
-  png.each_scanline do |scanline|
-    scanline.change_filter 2
-    #write_random_data scanline
-    scanline.gsub! /\d/, 'p'
-  end
-
-  png.save outfile
+rescue
+  `say "error"`
 end
 
 `say "glitching complete"`
