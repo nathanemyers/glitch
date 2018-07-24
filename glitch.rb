@@ -38,7 +38,7 @@ def heavy_corrupt data
   data.gsub(/\w/, byte )
 end
 
-def layer png, num, size
+def glitch_layer png, num, size
   puts "glitching layer #{num}, size #{size}"
   png.each_scanline do |scanline|
     scanline.change_filter num 
@@ -46,7 +46,6 @@ def layer png, num, size
     scanline.gsub! /\d/, byte 
   end
 end
-
 
 # 0 - blocky
 # 1 - horizontal lines
@@ -58,13 +57,20 @@ begin
   file = select_file
   puts "selecting #{file}"
   PNGlitch.open(file) do |png|
-    layer png, 0, 500
+    iterations = rand(3) + 1
+    puts "using #{iterations} iterations"
+    (1..iterations).each do |n|
+      layer = rand(5)
+      size = 1
+      glitch_layer png, layer, size
+    end
 
     #puts "glitch"
     #png.glitch do |data|
     #light_corrupt data
     #end
 
+    # save this bad boy
     filename = File.basename(file)
     adj = RandomWord.adjs.next
     outfile = "output/#{adj}-#{filename}"
