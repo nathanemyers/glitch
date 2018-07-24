@@ -1,7 +1,13 @@
 require 'pnglitch'
+require 'random-word'
 
-infile = 'olp.png'
+infile = 'source_images/'
 outfile = 'test.png'
+
+def select_file
+  files = Dir["source_images/*.png"]
+  return files[rand(files.length)]
+end
 
 def wrong_filter scanline
   scanline.register_filter_encoder do |data, prev|
@@ -42,21 +48,34 @@ def layer png, num, size
 end
 
 
+# 0 - blocky
+# 1 - horizontal lines
+# 2 - vertical lines
+# 3 - average
+# 4 - peath
 begin
   `say "glitching..."`
-  PNGlitch.open(infile) do |png|
-    layer png, 3, 2
-    layer png, 0, 1
+  file = select_file
+  puts "selecting #{file}"
+  PNGlitch.open(file) do |png|
+    layer png, 0, 500
 
     #puts "glitch"
     #png.glitch do |data|
     #light_corrupt data
     #end
 
+    filename = File.basename(file)
+    adj = RandomWord.adjs.next
+    outfile = "output/#{adj}-#{filename}"
+    puts "saving to #{outfile}"
     png.save outfile
+
+    `say "glitching complete"`
   end
-rescue
-  `say "error"`
+rescue => error
+  `say "Oh! Fuck!"`
+  puts error
 end
 
-`say "glitching complete"`
+`open #{outfile}`
