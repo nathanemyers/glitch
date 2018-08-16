@@ -2,7 +2,7 @@ require 'pnglitch'
 require 'random-word'
 
 def select_file
-  files = Dir["source_images/*.png"]
+  files = Dir.glob("source_images/**/*.png")
   return files[rand(files.length)]
 end
 
@@ -40,7 +40,7 @@ def glitch_layer(png, num, size)
   png.each_scanline do |scanline|
     scanline.change_filter num 
     byte = Random.new.bytes(size)
-    scanline.gsub! /\d/, byte 
+    scanline.gsub!(/\d/, byte) 
   end
 end
 
@@ -70,7 +70,7 @@ def garble(png, chance)
 end
 
 def all_filter_two(png)
-  p.change_all_filters 2
+  p.change_all_filters(2)
   p.each_scanline do |l|
     l.register_filter_encoder do |data, prev|
       data.size.times.reverse_each do |i|
@@ -93,8 +93,10 @@ end
 
 puts "selecting #{file}"
 filename = File.basename(file)
+directory = File.dirname(file)
+out_directory = directory.sub('source_images', 'output')
 adj = RandomWord.adjs.next
-outfile = "output/#{adj}-#{filename}"
+outfile = "#{out_directory}/#{adj}-#{filename}"
 
 # 0 - blocky
 # 1 - horizontal lines
@@ -104,15 +106,15 @@ outfile = "output/#{adj}-#{filename}"
 begin
   `say "glitching..."`
   PNGlitch.open(file) do |png|
-    #iterations = rand(3) + 1
-    #puts "using #{iterations} iterations"
-    #(1..iterations).each do |n|
-      #layer = rand(5)
-      #size = 1
-      #glitch_layer png, layer, size
-    #end
+    iterations = rand(3) + 1
+    puts "using #{iterations} iterations"
+    (1..iterations).each do |n|
+      layer = rand(5)
+      size = 1
+      glitch_layer png, layer, size
+    end
     
-    all_filter_two(png)
+    #all_filter_two(png)
 
     #garble(png, 10)
 
@@ -122,13 +124,17 @@ begin
     #end
 
     # save this bad boy
+    unless Dir.exist? out_directory
+      puts "creating directory #{out_directory}"
+      Dir.mkdir(out_directory)
+    end
     puts "saving to #{outfile}"
     png.save(outfile)
 
     `say "glitching complete"`
   end
 rescue => error
-  `say "Oh! Fuck!"`
+  `say "Fuck!"`
   puts error
 end
 
