@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 require_relative 'instruction'
+require_relative 'image'
 
-
-def create_random_profile
+def generate_random_instructions
   num_instructions = rand(3) + 1
 
   instructions = []
@@ -16,6 +16,10 @@ def create_random_profile
   return instructions
 end
 
+def random_png
+  files = Dir.glob("../source_images/**/*.png")
+  return files[rand(files.length)]
+end
 
 def welcome
   puts ""
@@ -39,7 +43,18 @@ loop do
   case input.downcase
   when "c"
     puts "🤪  Glitching..."
-    puts create_random_profile
+    instructions = generate_random_instructions
+    png_file = random_png
+    image = Glitch::Image.new(png_file, instructions)
+
+    puts "Selecting #{png_file}"
+    puts "Using Instructions:"
+    puts "Writing to #{image.outfile}"
+    puts instructions
+
+    image.glitch
+    image.save
+    image.close
   when "q"
     puts "😢 Goodbye"
     break
