@@ -55,6 +55,7 @@ loop do
     image.glitch
     image.save
     image.close
+    image.show
   when "q"
     puts "😢 Goodbye"
     break

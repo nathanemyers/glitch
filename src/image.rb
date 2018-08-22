@@ -39,6 +39,10 @@ module Glitch
       @png.close
     end
 
+    def show
+      `open #{@outfile}`
+    end
+
     def to_s
       return @outfile
     end
