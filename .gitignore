@@ -1,4 +1,6 @@
-*.png
+source_images/*
+output/*
+
 *.gem
 *.rbc
 /.config
