@@ -9,12 +9,12 @@ module Glitch
     def initialize(png_path, instructions=[])
       filename = File.basename(png_path)
       directory = File.dirname(png_path)
-      out_directory = directory.sub('source_images', 'output')
+      @out_directory = directory.sub('source_images', 'output')
       adj = RandomWord.adjs.next
 
       @instructions = instructions
       @png = PNGlitch.open(png_path)
-      @outfile = "#{out_directory}/#{adj}-#{filename}"
+      @outfile = "#{@out_directory}/#{adj}-#{filename}"
     end
 
     def manual_glitch(layer, size=1)
@@ -32,6 +32,10 @@ module Glitch
     end
 
     def save
+    unless Dir.exist? @out_directory
+      puts "creating directory #{@out_directory}"
+      Dir.mkdir(@out_directory)
+    end
       @png.save(@outfile)
     end
 

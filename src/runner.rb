@@ -2,6 +2,7 @@
 
 require_relative 'instruction'
 require_relative 'image'
+require_relative 'convert_files'
 
 def generate_random_instructions
   num_instructions = rand(3) + 1
@@ -16,9 +17,13 @@ def generate_random_instructions
   return instructions
 end
 
-def random_png
-  files = Dir.glob("../source_images/**/*.png")
+def random_png(directory="../source_images/**/*.png")
+  files = Dir.glob(directory)
   return files[rand(files.length)]
+end
+
+def get_directories
+  return Dir.glob('*').select {|f| File.directory? f}
 end
 
 def welcome
@@ -30,9 +35,32 @@ end
 def main_menu
   puts "Menu Items:"
   puts " [C]reate Random Glitch"
+  puts " [G]litch From Folder"
   puts " [Q]uit"
 end
 
+def init
+  files = convert_all_jpgs 
+  if files.length > 0
+      puts "Preprocessed #{files.length} files."
+  end
+end
+
+def glitch(png_file, instructions)
+  image = Glitch::Image.new(png_file, instructions)
+
+  puts "Selecting #{png_file}"
+  puts "Using Instructions:"
+  puts "Writing to #{image.outfile}"
+  puts instructions
+
+  image.glitch
+  image.save
+  image.close
+  image.show
+end
+
+init
 welcome
 
 loop do
@@ -45,17 +73,14 @@ loop do
     puts "🤪  Glitching..."
     instructions = generate_random_instructions
     png_file = random_png
-    image = Glitch::Image.new(png_file, instructions)
+    glitch(png_file, instructions)
+  when "g"
+    puts "🤔  Which folder should I use?"
+    puts get_directories
 
-    puts "Selecting #{png_file}"
-    puts "Using Instructions:"
-    puts "Writing to #{image.outfile}"
-    puts instructions
-
-    image.glitch
-    image.save
-    image.close
-    image.show
+    instructions = generate_random_instructions
+    png_file = random_png
+    glitch(png_file, instructions)
   when "q"
     puts "😢 Goodbye"
     break
