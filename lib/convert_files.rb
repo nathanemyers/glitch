@@ -1,7 +1,7 @@
 require 'mini_magick'
 
-def convert_all_jpgs
-  files = Dir.glob("../source_images/*/**.jpg")
+def convert_all_jpgs(dir)
+  files = Dir.glob(dir)
 
   files.each do |file|
     filename = File.basename(file, '.jpg')

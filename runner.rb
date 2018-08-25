@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require_relative 'instruction'
-require_relative 'image'
-require_relative 'convert_files'
+require_relative 'lib/instruction'
+require_relative 'lib/image'
+require_relative 'lib/convert_files'
 
 def generate_random_instructions
   num_instructions = rand(3) + 1
@@ -17,7 +17,7 @@ def generate_random_instructions
   return instructions
 end
 
-def random_png(directory="../source_images/**/*.png")
+def random_png(directory="source_images/**/*.png")
   files = Dir.glob(directory)
   return files[rand(files.length)]
 end
@@ -40,7 +40,10 @@ def main_menu
 end
 
 def init
-  files = convert_all_jpgs 
+  files = []
+  files << convert_all_jpgs("source_images/**/*.jpg")
+  files << convert_all_jpgs("source_images/*.jpg")
+
   if files.length > 0
       puts "Preprocessed #{files.length} files."
   end
