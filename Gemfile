@@ -2,3 +2,4 @@
 source "https://rubygems.org"
 
 gem "mini_magick"
+gem 'random-word', '~> 2.1', '>= 2.1.1'

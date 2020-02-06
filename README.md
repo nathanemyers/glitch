@@ -1,5 +1,11 @@
 # glitch
 
+## Installation
+```
+gem install bundler
+bundle install
+```
+
 ## Gallery
 ![](sample_images/annual-hat-man.png)
 ![](sample_images/fattish-business_map.png)
