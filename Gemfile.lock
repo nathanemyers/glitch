@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     mini_magick (4.8.0)
+    pnglitch (0.0.3)
     random-word (2.1.1)
 
 PLATFORMS
@@ -9,6 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   mini_magick
+  pnglitch (~> 0.0.2)
   random-word (~> 2.1, >= 2.1.1)
 
 BUNDLED WITH

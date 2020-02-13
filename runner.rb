@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
+require 'bundler/setup'
+
 require_relative 'lib/instruction'
 require_relative 'lib/image'
 require_relative 'lib/convert_files'
