@@ -22,7 +22,8 @@ end
 
 def random_png(directory="source_images/**/*.png")
   files = Dir.glob(directory)
-  return files[rand(files.length)]
+  file = files[rand(files.length)]
+  return file
 end
 
 def get_directories
@@ -79,7 +80,12 @@ loop do
     puts "🤪  Glitching..."
     instructions = generate_random_instructions
     png_file = random_png
-    glitch(png_file, instructions)
+
+    if png_file.nil?
+      puts "Couldn't find a random image, do you have any source images?"
+    else
+      glitch(png_file, instructions)
+    end
   when "g"
     puts "🤔  Which folder should I use?"
     puts get_directories
