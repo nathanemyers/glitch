@@ -1,14 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    graphicsmagick (1.0.6)
+      subexec
     mini_magick (4.8.0)
     pnglitch (0.0.3)
     random-word (2.1.1)
+    subexec (0.2.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  graphicsmagick (~> 1.0, >= 1.0.5)
   mini_magick
   pnglitch (~> 0.0.2)
   random-word (~> 2.1, >= 2.1.1)

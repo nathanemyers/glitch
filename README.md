@@ -4,6 +4,7 @@
 ```
 gem install bundler
 bundle install
+brew install imagemagick
 ```
 
 ## Gallery
