@@ -1,21 +1,28 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    graphicsmagick (1.0.6)
-      subexec
-    mini_magick (4.8.0)
+    mini_magick (4.10.1)
     pnglitch (0.0.3)
+    rack (1.6.13)
+    rack-protection (1.5.5)
+      rack
     random-word (2.1.1)
-    subexec (0.2.3)
+    sinatra (1.4.8)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    sqlite3 (1.3.13)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  graphicsmagick (~> 1.0, >= 1.0.5)
   mini_magick
   pnglitch (~> 0.0.2)
   random-word (~> 2.1, >= 2.1.1)
+  sinatra (~> 1.4, >= 1.4.7)
+  sqlite3 (~> 1.3.6)
 
 BUNDLED WITH
-   2.1.4
+   2.1.2
