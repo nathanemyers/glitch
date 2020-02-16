@@ -1,6 +1,7 @@
 source_images/*
 output/*
 .DS_Store
+*.db
 
 *.gem
 *.rbc
