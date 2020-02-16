@@ -5,12 +5,10 @@ class Database
   def initialize(db)
     puts "DB Bootup..."
     begin
-      @db = SQLite3::Database.open db
-    rescue
-      puts "Could not find database: #{db}"
-      puts "Initializing new database: #{db}..."
       @db = init(db)
-      puts "Done!"
+    rescue e
+      puts "Error connecting to database"
+      puts e.message
     end
 
   end
@@ -22,7 +20,7 @@ class Database
 
     # Create Source Image Table
     db.execute <<-SQL
-      CREATE TABLE source_images (
+      CREATE TABLE IF NOT EXISTS source_images (
         id  INT  PRIMARY KEY  NOT NULL,
         URL TEXT              NOT NULL 
       );
@@ -30,7 +28,7 @@ class Database
 
     # Create Glitch Image Table
     db.execute <<-SQL
-      CREATE TABLE glitch_images (
+      CREATE TABLE IF NOT EXISTS glitch_images (
         id                  INT   PRIMARY KEY  NOT NULL,
         URL                 TEXT               NOT NULL,
         instruction_set_id  INT,
@@ -44,7 +42,7 @@ class Database
 
     # Create Instruction Set Table
     db.execute <<-SQL
-      CREATE TABLE instruction_set (
+      CREATE TABLE IF NOT EXISTS instruction_set (
         id           INT   PRIMARY KEY  NOT NULL,
         name         TEXT               NOT NULL,
         instructions BLOB               NOT NULL
@@ -54,9 +52,9 @@ class Database
 
     # Create Runs Table
     db.execute <<-SQL
-      CREATE TABLE runs (
+      CREATE TABLE IF NOT EXISTS runs (
         id           INT   PRIMARY KEY  NOT NULL,
-        name         TEXT               NOT NULL,
+        name         TEXT               NOT NULL
       );
     SQL
 
