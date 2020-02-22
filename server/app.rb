@@ -29,3 +29,9 @@ post '/runs' do
 
   { foo: rows }.to_json
 end
+
+post 'order' do
+  request.body.rewind  # in case someone already read it
+  data = JSON.parse request.body.read
+  "Hello #{data['name']}!"
+end

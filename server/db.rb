@@ -16,11 +16,10 @@ class Database
   def add_source_image()
   end
 
-  def create_run(name:)
-    return db.execute <<-SQL
-      INSERT INTO TABLE runs (name)
-      VALUES(name)
-    SQL
+  def create_run(name)
+    puts "creating run #{name}"
+    return @db.execute("INSERT INTO TABLE runs (name)
+      VALUES(?)", [name])
   end
 
   private
