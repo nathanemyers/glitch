@@ -3,8 +3,13 @@
 ## Installation
 ```
 gem install bundler
-bundle install
 brew install imagemagick
+bundle install
+```
+
+** Running API
+```
+ruby server/app.rb
 ```
 
 ### Installing Ruby

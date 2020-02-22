@@ -13,6 +13,16 @@ class Database
 
   end
 
+  def add_source_image()
+  end
+
+  def create_run(name:)
+    return db.execute <<-SQL
+      INSERT INTO TABLE runs (name)
+      VALUES(name)
+    SQL
+  end
+
   private
 
   def init(db) 
