@@ -18,7 +18,7 @@ class Database
 
   def create_run(name)
     puts "creating run #{name}"
-    return @db.execute("INSERT INTO TABLE runs (name)
+    return @db.execute("INSERT INTO runs (name)
       VALUES(?)", [name])
   end
 
@@ -30,7 +30,7 @@ class Database
     # Create Source Image Table
     db.execute <<-SQL
       CREATE TABLE IF NOT EXISTS source_images (
-        id  INT  PRIMARY KEY  NOT NULL,
+        id  INTEGER  PRIMARY KEY  NOT NULL,
         URL TEXT              NOT NULL 
       );
     SQL
@@ -38,7 +38,7 @@ class Database
     # Create Glitch Image Table
     db.execute <<-SQL
       CREATE TABLE IF NOT EXISTS glitch_images (
-        id                  INT   PRIMARY KEY  NOT NULL,
+        id                  INTEGER   PRIMARY KEY  NOT NULL,
         URL                 TEXT               NOT NULL,
         instruction_set_id  INT,
         source_image_id     INT,
@@ -52,7 +52,7 @@ class Database
     # Create Instruction Set Table
     db.execute <<-SQL
       CREATE TABLE IF NOT EXISTS instruction_set (
-        id           INT   PRIMARY KEY  NOT NULL,
+        id           INTEGER   PRIMARY KEY  NOT NULL,
         name         TEXT               NOT NULL,
         instructions BLOB               NOT NULL
       );
@@ -62,7 +62,7 @@ class Database
     # Create Runs Table
     db.execute <<-SQL
       CREATE TABLE IF NOT EXISTS runs (
-        id           INT   PRIMARY KEY  NOT NULL,
+        id           INTEGER   PRIMARY KEY  NOT NULL,
         name         TEXT               NOT NULL
       );
     SQL
