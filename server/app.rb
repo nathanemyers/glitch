@@ -22,6 +22,9 @@ get '/random_glitch' do
   {foo: "hello"}.to_json
 end
 
+
+# RUNS
+
 post '/runs' do 
   adj = RandomWord.adjs.next
   noun = RandomWord.nouns.next
@@ -30,8 +33,26 @@ post '/runs' do
   { foo: rows }.to_json
 end
 
+get '/runs' do
+  rows = db.get_runs()
+
+  { runs: rows }.to_json
+end
+
+# ORDER
+
 post 'order' do
   request.body.rewind  # in case someone already read it
   data = JSON.parse request.body.read
   "Hello #{data['name']}!"
 end
+
+
+
+
+
+
+
+
+
+

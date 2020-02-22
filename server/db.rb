@@ -11,6 +11,7 @@ class Database
       puts e.message
     end
 
+    @db.results_as_hash = true
   end
 
   def add_source_image()
@@ -20,6 +21,10 @@ class Database
     puts "creating run #{name}"
     return @db.execute("INSERT INTO runs (name)
       VALUES(?)", [name])
+  end
+
+  def get_runs
+    return @db.execute("SELECT * FROM runs")
   end
 
   private
