@@ -28,9 +28,10 @@ end
 post '/runs' do 
   adj = RandomWord.adjs.next
   noun = RandomWord.nouns.next
-  rows = db.create_run("#{adj}-#{noun}")
+  full_name = "#{adj}-#{noun}"
+  db.create_run(full_name)
 
-  { foo: rows }.to_json
+  { name: full_name }.to_json
 end
 
 get '/runs' do
