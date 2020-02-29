@@ -4,8 +4,7 @@ import {
   Switch,
   Route,
   Link
-} from "react-router-dom";
-
+} from "react-router-dom"
 
 import Home from './containers/Home'
 import Runs from './containers/Runs'
