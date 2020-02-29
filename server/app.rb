@@ -3,6 +3,8 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'sinatra'
+require 'sinatra/cross_origin'
+
 require 'json'
 
 require 'random-word'
@@ -14,8 +16,14 @@ db = Database.new(DB_NAME)
 
 set :public_folder, File.dirname(__FILE__) + '/static'
 
+configure do
+  enable :cross_origin
+end
+
 before do
   content_type :json
+  response.headers['Access-Control-Allow-Origin'] = '*'
+
 end
 
 get '/random_glitch' do
@@ -48,12 +56,9 @@ post 'order' do
   "Hello #{data['name']}!"
 end
 
-
-
-
-
-
-
-
-
-
+options "*" do
+  response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
+end

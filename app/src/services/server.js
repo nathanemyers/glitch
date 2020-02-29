@@ -12,16 +12,19 @@ export async function getRuns() {
       'Content-Type': 'application/json'
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
+    origin: "*",
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *client
   })
-  return await response.json()
+
+  const data = await response.json()
+  return data.runs
 }
 
 export async function postRuns(data={}) {
   const response = await fetch(RUNS_URL, {
     method: 'POST',
-    mode: 'cors', // no-cors, *cors, same-origin
+    mode: 'no-cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
     headers: {
