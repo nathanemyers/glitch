@@ -6,6 +6,9 @@ import {
   Link
 } from "react-router-dom"
 
+import Nav from './components/Nav'
+import NavItem from './components/NavItem'
+
 import Home from './containers/Home'
 import Runs from './containers/Runs'
 
@@ -14,14 +17,14 @@ function App() {
     <Router>
       <div>
         <nav>
-          <ul>
-            <li>
+          <Nav>
+            <NavItem>
               <Link to="/">Home</Link>
-            </li>
-            <li>
+            </NavItem>
+            <NavItem>
               <Link to="/runs">Runs</Link>
-            </li>
-          </ul>
+            </NavItem>
+          </Nav>
         </nav>
 
         <Switch>
