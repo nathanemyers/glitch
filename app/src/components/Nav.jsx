@@ -7,4 +7,5 @@ export default styled.ul`
   color: ${({ theme }) => theme.priaryDark};
   list-style-type: none;
   padding: 0;
+  margin-top: 0;
 `

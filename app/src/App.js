@@ -15,6 +15,8 @@ import Runs from './containers/Runs'
 
 const Container = styled.div`
   font-family: 'Nunito Sans';
+  background-color: ${({ theme }) => theme.neutral};
+  min-height: 100vh;
 `
 
 function App() {
