@@ -10,8 +10,9 @@ const propTypes = {
 
 export default function Home(props) {
   return (
-    <Container 
-    />
+    <Container>
+      <h1>Home</h1>
+    </Container>
   )
 }
 

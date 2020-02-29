@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import Run from '../components/Run'
+import Run from '../../components/Run'
 
 const Container = styled.div``
 
@@ -20,6 +20,7 @@ export default function Runs(props) {
   ))
   return (
     <Container>
+      <h1>Runs</h1>
       {runs}
     </Container>
   )
