@@ -28,12 +28,12 @@ export function fetchRunsFail(error) {
 
 export function fetchRuns() {
   return async (dispatch) => {
-    dispatch(fetchRunsStart)
+    dispatch(fetchRunsStart())
     try {
       const runs = await getRuns()
       dispatch(fetchRunsSuccess(runs))
     } catch(e) {
-      dispatch(fetchRunsFail(e))
+      dispatch(fetchRunsFail(e.message))
     }
   }
 }
