@@ -1,23 +1,30 @@
 # glitch
 
-## Installation
+### Installing Ruby on OSX
+Don't use system ruby on OSX because it's hooked into everything.
+```
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+rvm install 2.7.0
+```
+
+## Backend Installation
 ```
 gem install bundler
 brew install imagemagick
 bundle install
 ```
 
-** Running the API **
+## Frontend Installation
+```
+cd /app
+npm i
+```
+
+## Running the API
 ```
 ruby server/app.rb
 ```
 
-### Installing Ruby
-Don't use system ruby on OSX because it's hooked into everything.
-```
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
-rvm install 2.7.0
-```
 
 ## Gallery
 ![](sample_images/annual-hat-man.png)
