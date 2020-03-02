@@ -7,7 +7,7 @@ brew install imagemagick
 bundle install
 ```
 
-** Running API
+** Running the API **
 ```
 ruby server/app.rb
 ```
