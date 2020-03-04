@@ -19,17 +19,36 @@ set :public_folder, File.dirname(__FILE__) + '/static'
 configure do
   enable :cross_origin
 end
-
 before do
+
   content_type :json
   response.headers['Access-Control-Allow-Origin'] = '*'
-
 end
+
+# GENERAL
 
 get '/random_glitch' do
   {foo: "hello"}.to_json
 end
 
+# IMAGES
+
+post '/upload' do
+  tempfile = params[:file]
+  filename = params[:file]
+  puts "got params #{params}"
+  cp(tempfile.path, "public/source/#{filename}")
+end
+
+get '/source_images/:name' do
+  name = params['name']
+  File.read(File.join('public', 'source', name))
+end
+
+get '/glitched_images/:name' do
+  name = params['name']
+  File.read(File.join('public', 'glitch', name))
+end
 
 # RUNS
 

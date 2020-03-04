@@ -12,6 +12,7 @@ import NavItem from './components/NavItem'
 
 import Home from './containers/Home'
 import Runs from './containers/Runs'
+import Uploads from './containers/Uploads'
 
 const Container = styled.div`
   font-family: 'Nunito Sans';
@@ -32,12 +33,18 @@ function App() {
               <NavItem>
                 <Link to="/runs">Runs</Link>
               </NavItem>
+              <NavItem>
+                <Link to="/uploads">Upload Image</Link>
+              </NavItem>
             </Nav>
           </nav>
 
           <Switch>
             <Route path="/runs">
               <Runs />
+            </Route>
+            <Route path="/uploads">
+              <Uploads />
             </Route>
             <Route path="/">
               <Home />

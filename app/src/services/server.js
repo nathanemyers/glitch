@@ -1,20 +1,25 @@
 import {
   RUNS_URL,
+  UPLOAD_URL,
 } from './constants'
+
+const settings = {
+  mode: 'cors', // no-cors, *cors, same-origin
+  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  credentials: 'same-origin', // include, *same-origin, omit
+  headers: {
+    'Content-Type': 'application/json'
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  origin: "*",
+  redirect: 'follow', // manual, *follow, error
+  referrerPolicy: 'no-referrer', // no-referrer, *client
+}
 
 export async function getRuns() {
   const response = await fetch(RUNS_URL, {
+    ...settings,
     method: 'GET',
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    origin: "*",
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *client
   })
 
   const data = await response.json()
@@ -23,17 +28,25 @@ export async function getRuns() {
 
 export async function postRuns(data={}) {
   const response = await fetch(RUNS_URL, {
+    ...settings,
     method: 'POST',
-    mode: 'no-cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *client
     body: JSON.stringify(data) // body data type must match "Content-Type" header
+  })
+
+  return await response.json()
+}
+
+export async function postUpload({ file }) {
+  const formData = new FormData()
+  formData.append('upload', file)
+
+  const response = await fetch(UPLOAD_URL, {
+    ...settings,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    body: formData,
   })
 
   return await response.json()
