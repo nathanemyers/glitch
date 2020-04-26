@@ -29,7 +29,9 @@ export function uploadImage(file) {
   return async (dispatch) => {
     dispatch(uploadImageStart())
     try {
-      const id = await postUpload(file)
+      const id = await postUpload({
+        file,
+      })
       dispatch(uploadImageSuccess(id))
     } catch(e) {
       dispatch(uploadImageFail(e.message))

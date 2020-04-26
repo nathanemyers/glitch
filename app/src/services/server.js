@@ -38,7 +38,7 @@ export async function postRuns(data={}) {
 
 export async function postUpload({ file }) {
   const formData = new FormData()
-  formData.append('upload', file)
+  formData.append('file', file)
 
   const response = await fetch(UPLOAD_URL, {
     ...settings,

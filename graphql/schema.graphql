@@ -1,0 +1,49 @@
+type Image {
+  id: ID!
+  url: String!
+  source: Image
+  pattern: GlitchPattern
+}
+
+type Run {
+  id: ID!
+  name: String!
+  images: [Image]!
+}
+
+type GlitchPattern {
+  id: ID!
+  name: String!
+  instructions: [Instruction!]!
+}
+
+type Instruction {
+  type: String!
+  value: Int!
+}
+
+
+type Query {
+  runs(): [Runs]
+  run(id: ID!): Run
+}
+
+type AddCategoryToGameOutput {
+  game: Game
+  category: Category
+}
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
+type Mutation {
+  uploadImage(image: Upload!): File!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

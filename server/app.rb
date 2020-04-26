@@ -5,10 +5,13 @@ require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/cross_origin'
 
+
 require 'json'
 
 require 'random-word'
 require_relative 'db'
+
+include FileUtils::Verbose
 
 DB_NAME = "glitch.db"
 
@@ -19,11 +22,17 @@ set :public_folder, File.dirname(__FILE__) + '/static'
 configure do
   enable :cross_origin
 end
-before do
 
+before do
   content_type :json
   response.headers['Access-Control-Allow-Origin'] = '*'
 end
+
+set :allow_origin, :any
+set :allow_methods, [:get, :post, :options]
+set :allow_credentials, true
+set :max_age, "1728000"
+set :expose_headers, ['Content-Type']
 
 # GENERAL
 
@@ -36,7 +45,7 @@ end
 post '/upload' do
   tempfile = params[:file]
   filename = params[:file]
-  puts "got params #{params}"
+  puts "got filename #{filename}"
   cp(tempfile.path, "public/source/#{filename}")
 end
 
