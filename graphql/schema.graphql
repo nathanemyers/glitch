@@ -28,11 +28,6 @@ type Query {
   run(id: ID!): Run
 }
 
-type AddCategoryToGameOutput {
-  game: Game
-  category: Category
-}
-
 type File {
   filename: String!
   mimetype: String!
