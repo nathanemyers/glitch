@@ -26,7 +26,8 @@ export default function Home(props) {
 
   async function handleSubmit(search) {
     const { url, description } = await getRandomImage({
-
+      query: search,
+      orientation: 'squarish',
     })
     setDesc(description)
     setURL(url)

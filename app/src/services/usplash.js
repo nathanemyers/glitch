@@ -15,8 +15,6 @@ const settings = {
 export async function getRandomImage(options) {
   const url = new URL(USPLASH_RANDOM_IMAGE)
 
-  console.log('process env', process.env)
-
   const params = {
     client_id: process.env.REACT_APP_USPLASH_ACCEESS_KEY, 
     ...options,
