@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -9,6 +10,7 @@ import theme from './theme'
 import store from './redux/store'
 
 import init from './init'
+
 init()
 
 ReactDOM.render(
