@@ -1,20 +1,18 @@
-require 'random-word'
 require 'pnglitch'
+require 'securerandom'
 
 module Glitch
 
   class Image
     attr_reader :outfile, :filename
 
-    def initialize(png_path, instructions=[])
-      filename = File.basename(png_path)
-      directory = File.dirname(png_path)
-      @out_directory = directory.sub('source_images', 'output')
-      adj = RandomWord.adjs.next
+    def initialize(png_path, instructions=[], out_dir)
+      @out_directory = out_dir
+      new_filename = "#{SecureRandom.uuid}.png"
 
       @instructions = instructions
       @png = PNGlitch.open(png_path)
-      @outfile = "#{@out_directory}/#{adj}-#{filename}"
+      @outfile = "#{@out_directory}/#{new_filename}"
     end
 
     def manual_glitch(layer, size=1)

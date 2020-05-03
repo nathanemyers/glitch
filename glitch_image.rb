@@ -34,6 +34,30 @@ def get_random_filename
   return "#{adj}-#{noun}"
 end
 
+def generate_random_instructions
+  num_instructions = rand(3) + 1
+
+  instructions = []
+
+  while num_instructions > 0
+    num_instructions = num_instructions - 1 
+      instructions.push(Glitch::Instruction.random_instruction)
+  end
+
+  return instructions
+end
+
+def glitch_image(png_file)
+  instructions = generate_random_instructions
+
+  image = Glitch::Image.new(png_file, instructions, '/tmp')
+
+  image.glitch
+  image.save
+  image.close
+  return image.outfile
+end
+
 if (options[:url])
   base_filename = SecureRandom.uuid
   outfile = "/tmp/#{base_filename}"
@@ -48,6 +72,13 @@ if (options[:url])
 
   image = MiniMagick::Image.open(outfile)
   image.format "png"
-  image.write "#{outfile}.png"
+  converted_image_path = "#{outfile}.png"
+  image.write converted_image_path
   p "converted image"
+
+  glitched_file = glitch_image(converted_image_path)
+
+  p "we did it! here it is! #{glitched_file}"
+
+
 end
