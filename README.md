@@ -7,6 +7,8 @@ Don't use system ruby on OSX because it's hooked into everything.
 rvm install 2.7.0
 ```
 
+did I break everything?
+
 ## Backend Installation
 ```
 gem install bundler
