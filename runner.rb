@@ -47,6 +47,8 @@ def init
   files = []
   files << convert_all_jpgs("source_images/**/*.jpg")
   files << convert_all_jpgs("source_images/*.jpg")
+  files << convert_all_jpgs("source_images/**/*.jpeg")
+  files << convert_all_jpgs("source_images/*.jpeg")
 
   if files.length > 0
       puts "Preprocessed #{files.length} files."

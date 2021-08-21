@@ -4,11 +4,13 @@ def convert_all_jpgs(dir)
   files = Dir.glob(dir)
 
   files.each do |file|
-    filename = File.basename(file, '.jpg')
+    filename = File.basename(file, '.*')
     directory = File.dirname(file)
     puts "Converting #{file}..."
     image = MiniMagick::Image.open(file)
+    image.resize "#{500*500}@>"
     image.format "png"
+
     out_filename = "#{directory}/#{filename}.png"
     puts "Writing #{out_filename}"
     image.write out_filename
