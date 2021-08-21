@@ -1,5 +1,6 @@
 require 'random-word'
 require 'pnglitch'
+require_relative 'convert_files'
 
 module Glitch
 
@@ -13,7 +14,16 @@ module Glitch
       adj = RandomWord.adjs.next
 
       @instructions = instructions
-      @png = PNGlitch.open(png_path)
+
+      @rotation = [0, 90, 180, 270].sample
+
+      if @rotation != 0
+        puts "rotating #{@rotation} degrees"
+        rotated_image = create_rotated_image(png_path, @rotation)
+        @png = PNGlitch.open(rotated_image)
+      else
+        @png = PNGlitch.open(png_path)
+      end
       @outfile = "#{@out_directory}/#{adj}-#{filename}"
     end
 
@@ -32,11 +42,22 @@ module Glitch
     end
 
     def save
-    unless Dir.exist? @out_directory
-      puts "creating directory #{@out_directory}"
-      Dir.mkdir(@out_directory)
-    end
+      unless Dir.exist? @out_directory
+        puts "creating directory #{@out_directory}"
+        Dir.mkdir(@out_directory)
+      end
+
       @png.save(@outfile)
+
+      if @rotation == 90
+        rotate_in_place(@outfile, 270)
+      end
+      if @rotation == 180
+        rotate_in_place(@outfile, 180)
+      end
+      if @rotation == 270
+        rotate_in_place(@outfile, 90)
+      end
     end
 
     def close
