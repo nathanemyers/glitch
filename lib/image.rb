@@ -15,7 +15,8 @@ module Glitch
 
       @instructions = instructions
 
-      @rotation = [0, 90, 180, 270].sample
+      # @rotation = [0, 90, 180, 270].sample
+      @rotation = rand(0..359)
 
       if @rotation != 0
         puts "rotating #{@rotation} degrees"
@@ -49,15 +50,10 @@ module Glitch
 
       @png.save(@outfile)
 
-      if @rotation == 90
-        rotate_in_place(@outfile, 270)
+      if @rotation != 0
+        rotate_in_place(@outfile, 360 - @rotation)
       end
-      if @rotation == 180
-        rotate_in_place(@outfile, 180)
-      end
-      if @rotation == 270
-        rotate_in_place(@outfile, 90)
-      end
+
     end
 
     def close
