@@ -39,6 +39,7 @@ end
 def main_menu
   puts "Menu Items:"
   puts " [C]reate Random Glitch"
+  puts " [M]ass Glitch 100 images"
   puts " [G]litch From Folder"
   puts " [Q]uit"
 end
@@ -55,7 +56,7 @@ def init
   end
 end
 
-def glitch(png_file, instructions)
+def glitch(png_file, instructions, show)
   image = Glitch::Image.new(png_file, instructions)
 
   puts "Selecting #{png_file}"
@@ -66,7 +67,9 @@ def glitch(png_file, instructions)
   image.glitch
   image.save
   image.close
-  image.show
+  if show
+    image.show
+  end
 end
 
 init
@@ -86,7 +89,7 @@ loop do
     if png_file.nil?
       puts "Couldn't find a random image, do you have any source images?"
     else
-      glitch(png_file, instructions)
+      glitch(png_file, instructions, true)
     end
   when "g"
     puts "🤔  Which folder should I use?"
@@ -94,7 +97,19 @@ loop do
 
     instructions = generate_random_instructions
     png_file = random_png
-    glitch(png_file, instructions)
+    glitch(png_file, instructions, true)
+  when "m"
+    puts "🥴 Mass Glitching..."
+    for a in 1..100 do 
+      instructions = generate_random_instructions
+      png_file = random_png
+
+      if png_file.nil?
+        puts "Couldn't find a random image, do you have any source images?"
+      else
+        glitch(png_file, instructions, false)
+      end
+    end
   when "q"
     puts "😢 Goodbye"
     break
