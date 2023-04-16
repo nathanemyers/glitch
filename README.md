@@ -2,6 +2,8 @@
 
 ### Installing Ruby on OSX
 Don't use system ruby on OSX because it's hooked into everything.
+
+Ruby 3.0.0 does not work with newer versions of mySQL, use 2.7.0
 ```
 \curl -sSL https://get.rvm.io | bash -s stable --ruby
 rvm install 2.7.0
