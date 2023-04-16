@@ -22,6 +22,14 @@ cd /app
 npm i
 ```
 
+## Running from Command Line
+A simple command line runner is available to create either a single or 100 glitched images.
+A random image will be selected from /input and the resulting glitch will be put in /output
+
+```
+./runner.rb
+```
+
 ## Running the API
 ```
 ruby server/app.rb
